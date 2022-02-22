@@ -70,3 +70,4 @@ app.get("/api/animals/:id", (req, res) => {
 app.listen(PORT, () => {
   console.log(`API server now available on port ${PORT}!`);
 });
+
