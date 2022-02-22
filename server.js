@@ -44,13 +44,14 @@ function findById(id, animalsArray) {
 }
 
 function createNewAnimal(body, animalsArray) {
-  console.log(body);
-  // our function's main code will go here!
-
-  // return finished code to post route for response
-  return body;
+  const animal = body;
+  animalsArray.push(animal);
+  fs.writeFileSync(
+    path.join(__dirname, './data/animals.json'),
+    JSON.stringify({ animals: animalsArray }, null, 2)
+  );
+  return animal;
 }
-
 app.get('/api/animals', (req, res) => {
   let results = animals;
   if (req.query) {
