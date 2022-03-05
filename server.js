@@ -16,9 +16,9 @@ const db = mysql.createConnection (
     {
         host: 'localhost',
         // your mysql username,
-        user: 'root',
+        user: 'bridgett',
         // your mysql password
-        password: 'PicoS123!',
+        password: 'passpass',
         database: 'election'
     });
     // console.log('Connected to the election database. Snitches.')
@@ -28,10 +28,21 @@ app.use((req, res) => {
     res.status(404).end();
 });
 
-// db.query(`SELECT * FROM candidates`, (err, rows) => {
-    // console.log(rows);
-// });
+// route to get ALL candidates
+app.get('/api/candidates', (req, res) => {
+    const sql = `SELECT * FROM candidates`;
 
+    db.query(sql, (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        res.json({
+            message: 'success',
+            data: rows});
+        });
+    });
+    
 // GET a single candidate
 // db.query(`SELECT * FROM candidates WHERE id = 1`, (err, row) => {
 //     if (err) {
@@ -49,16 +60,16 @@ app.use((req, res) => {
 //   });
 
 // Create a candidate
-const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) 
-            VALUES (?,?,?,?)`;
-const params = [1, 'Ronald', 'Firbank', 1];
+// const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) 
+//             VALUES (?,?,?,?)`;
+// const params = [1, 'Ronald', 'Firbank', 1];
 
-db.query(sql, params, (err, result) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log(result);
-});
+// db.query(sql, params, (err, result) => {
+//   if (err) {
+//     console.log(err);
+//   }
+//   console.log(result);
+// });
 
 // test Express.js connection via GET route
 // app.get('/', (req, res) => {
